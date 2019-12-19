@@ -13,3 +13,11 @@ body, html{
   left: 35%;
   top: 100px;
 }
+
+.footer{
+  width: 30%;
+  height: 30%;
+  position: relative;
+  left: 36%;
+  top: 140px;
+}
