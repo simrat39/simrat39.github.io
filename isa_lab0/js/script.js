@@ -1,4 +1,4 @@
-let last_clicked_id = -1;
+import Messages from "../lang/messages/en/user.js";
 
 class GameButton {
   /**
@@ -19,7 +19,7 @@ class GameButton {
      * @type HTMLButtonElement _element
      */
     this._element = document.createElement("button");
-    this._element.classList.add("game-button")
+    this._element.classList.add("game-button");
     this.showNumber();
     this._element.style.backgroundColor = color;
     this._element.style.height = height;
@@ -31,9 +31,9 @@ class GameButton {
     this.setClickable(false);
 
     this._element.addEventListener("click", () => {
-      if (last_clicked_id == id - 1) {
+      if (this.gameManager.last_clicked_id == id - 1) {
         this.showNumber();
-        last_clicked_id = id;
+        this.gameManager.last_clicked_id = id;
 
         if (id == gameManager.N - 1) {
           gameManager.finish(true);
@@ -78,6 +78,8 @@ class GameButton {
 class GameManager {
   constructor() {
     this.N = -1;
+    this.last_clicked_id = -1;
+
     this.container = document.getElementById("game");
     this.msg_element = document.getElementById("msg");
     /**
@@ -91,6 +93,8 @@ class GameManager {
       this.reset();
       this.start();
     });
+
+    document.getElementById("box-count_label").innerText = Messages.input_label;
   }
 
   /**
@@ -126,9 +130,9 @@ class GameManager {
     }
 
     if (won) {
-      this.msg_element.innerText = "You Won!";
+      this.msg_element.innerText = Messages.msg_win;
     } else {
-      this.msg_element.innerText = "You Lost!";
+      this.msg_element.innerText = Messages.msg_lost;
     }
   }
 
@@ -137,7 +141,7 @@ class GameManager {
     this.container.style.display = "flex";
     this.N = -1;
     this.msg_element.innerText = "";
-    last_clicked_id = -1;
+    this.last_clicked_id = -1;
   }
 
   async start() {
@@ -169,6 +173,7 @@ class GameManager {
 
     for (let i = 0; i < this.N; ++i) {
       for (const btn of this.buttons) {
+        // convert em to px to better calculate the top and left positions
         const fsize = parseFloat(getComputedStyle(btn._element).fontSize);
 
         const top = GameManager.getRandomInt(eheight + fsize * 5);

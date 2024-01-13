@@ -7,12 +7,12 @@
 
     <base href="/isa_lab0">
 
-    <link rel="stylesheet" href="/isa_lab0/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <form id="game-form">
-        <label for="box-count">How many buttons to create?</label>
-        <input type="text" name="box-count" id="box-count">
+        <label for="box-count" id="box-count_label"></label>
+        <input type="number" min="3" max="7" name="box-count" id="box-count">
         <input type="submit" value="Go">
     </form>
 
@@ -20,6 +20,7 @@
 
     <h3 id="msg"></h3>
 
-    <script type="module" src="/isa_lab0/js/script.js"></script>
+    <script type="module" src="js/script.js"></script>
+    <script type="module" src="lang/messages/en/user.js"></script>
 </body>
 </html>
